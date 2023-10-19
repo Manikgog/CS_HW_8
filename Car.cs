@@ -23,7 +23,9 @@ namespace CS_HW_8
 
         public override abstract string ToString();
 
+        public abstract int GetOdometr();
 
+        public abstract void Finish();
         
 
     }

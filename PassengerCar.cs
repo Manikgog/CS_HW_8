@@ -12,7 +12,7 @@ namespace CS_HW_8
 
         public PassengerCar(int speed, string carBrand, string model) : base(speed, carBrand, model) { }
 
-        public int GetOdometr()
+        public override int GetOdometr()
         {
             return odometr;
         }
@@ -28,6 +28,11 @@ namespace CS_HW_8
             speed = rnd.Next(maxSpeed) + maxSpeed - 10;
             odometr += speed;
             return odometr;
+        }
+
+        public override void Finish()
+        {
+            Console.WriteLine(ToString() + " приехала первой!");
         }
     }
 }

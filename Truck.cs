@@ -13,7 +13,7 @@ namespace CS_HW_8
 
         public Truck(int maxSpeed, string carBrand, string model) : base(maxSpeed, carBrand, model) { }
 
-        public int GetOdometr()
+        public override int GetOdometr()
         {
             return odometr;
         }
@@ -30,5 +30,11 @@ namespace CS_HW_8
             odometr += speed;
             return odometr;
         }
+
+        public override void Finish()
+        {
+            Console.WriteLine(ToString() + " приехала первой!");
+        }
+
     }
 }

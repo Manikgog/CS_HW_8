@@ -9,8 +9,11 @@ namespace CS_HW_8
 {
     public enum cardSuit {clubs, diamonds, hearts, spades };
     public enum cardDignity {six = 6, seven,  eight, nine, ten, jack, queen, king, ace};
+
+    public delegate void FinishDelegate(string t);
     internal class Game
     {
+        
         static void Main(string[] args)
         {
             //Card_Game();
@@ -52,9 +55,9 @@ namespace CS_HW_8
             реализовать с помощью событий.
              */
 
-            PassengerCar car1 = new PassengerCar(12, "Lada", "Granta");
-            PassengerCar car2 = new PassengerCar(12, "Lada", "Vesta");
-            PassengerCar car3 = new PassengerCar(12, "Lada", "Largus");
+            Car car1 = new PassengerCar(12, "Lada", "Granta");
+            Car car2 = new PassengerCar(12, "Lada", "Vesta");
+            Car car3 = new PassengerCar(12, "Lada", "Largus");
             do
             {
                 car1.Move();
@@ -67,24 +70,37 @@ namespace CS_HW_8
                 Console.WriteLine(car2.ToString() + " проехала " + car2.GetOdometr() + " км.");
                 Console.WriteLine(car3.ToString() + " проехала " + car3.GetOdometr() + " км.");
                 Thread.Sleep(1000);
-                Console.Clear();    
-            } while (car1.GetOdometr() < 100 && car2.GetOdometr() < 100 && car3.GetOdometr() < 100);
+                Console.Clear();
+                if (car1.GetOdometr() >= 100 || car2.GetOdometr() >= 100 || car3.GetOdometr() >= 100)
+                {
+                    Judge judge = new Judge();
+                    if (car1.GetOdometr() >= 100)
+                    {
+                        judge.FinishEvent += Judge_FinishEvent;
+                        judge.Finish(car1.ToString() + " проехала " + car1.GetOdometr() + " км.");
+                    }
+                    if (car2.GetOdometr() >= 100)
+                    {
+                        judge.FinishEvent += Judge_FinishEvent;
+                        judge.Finish(car2.ToString() + " проехала " + car2.GetOdometr() + " км.");
+                    }
+                    if (car3.GetOdometr() >= 100)
+                    {
+                        judge.FinishEvent += Judge_FinishEvent;
+                        judge.Finish(car2.ToString() + " проехала " + car2.GetOdometr() + " км.");
+                    }
+                    break;
+                }
+            } while (true);
 
-            if(car1.GetOdometr() >= 100)
-            {
-                Console.WriteLine(car1.ToString() + " приехала первой!");
-            }
-            if(car2.GetOdometr() >= 100)
-            {
-                Console.WriteLine(car2.ToString() + " приехала первой!");
-            }
-            if (car3.GetOdometr() >= 100)
-            {
-                Console.WriteLine(car3.ToString() + " приехала первой!");
-            }
+            Console.ReadKey();
 
         }
 
+        private static void Judge_FinishEvent(string t)
+        {
+            Console.WriteLine(t);
+        }
 
         public static void Card_Game()
         {
